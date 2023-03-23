@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cognitive Canvas Template</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <link id="cccss" rel="stylesheet" href="./css/cc.css" />
+    <link id="maincss" rel="stylesheet" href="./css/main.css" />
+    <link id="uicss" rel="stylesheet" href="./css/ui.css" />
+    <script id="ccseedjs" src="./js/ccseed.js"></script>
+    <script id="ccrandjs" src="./js/ccrand.js"></script>
+    <script id="parametersjs" src="./parameters.js"></script>
+    <script id="ccparamsjs" src="./js/ccparams.js"></script>
+    <script id="ccjs" src="./js/cc.js"></script>
+    <script id="ccreqjs" src="./js/ccreq.js"></script>
+    <script id="ccuireqjs" src="./js/ccuireq.js"></script>
+    <script id="ccuijs" src="./js/ccui.js"></script>
+    <script id="q5js" src="./q5.min.js"></script>
+    <script id="sketchjs" src="./sketch.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="ui" class="ui">
+            <div class="buttons">
+                <button id="button-fullscreen" class="button">Full Screen</button>
+                <button id="button-newseed" class="button">New Seed</button>
+                <button id="button-restart" class="button">Restart</button>
+                <button id="button-stop" class="button">Pause</button>
+            </div>
+            <div style="margin-top: 5px;">
+                <span class="seed">Seed:</span>
+                <input type="text" class="input-seed" id="seed" />
+                <button id="button-setseed" class="button">Set</button>
+            </div>
+            <div class="outline">
+                <div class="row">
+                    <div class="col">
+                        <div class="heading">Background</div>
+                        <input type="color" class="input-short color-picker" id="background">
+                    </div>
+                    <div class="col">
+                        <div class="heading">Blend Mode</div>
+                        <select id="blendMode" class="select-short">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="outline">
+                <div class="row">
+                    <div class="col">
+                        <div class="heading">Loops</div>
+                        <input type="text" id="loop" class="input">
+                    </div>
+                    <div class="col">
+                        <div class="heading">Iterations</div>
+                        <input type="text" id="loopIterations" class="input">
+                    </div>
+                </div>
+            </div>
+            <div class="outline">
+                <div class="heading">Drawing Primitive</div>
+                <select id="primitive" class="select-short">
+                </select>
+                <div class="row">
+                    <div class="col">
+                        <div class="heading">Size</div>
+                        <input type="text" id="size" class="input">
+                    </div>
+                </div>
+            </div>
+            <div class="outline">
+                <div class="heading">Circles Mask Count</div>
+                <input type="number" id="maskCircles" min="0" max="100" step="1" class="input">
+                <div class="row">
+                    <div class="col">
+                        <div class="heading">Start</div>
+                        <input type="text" id="maskCircleStart" class="input">
+                    </div>
+                    <div class="col">
+                        <div class="heading">End</div>
+                        <input type="text" id="maskCircleEnd" class="input">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="heading">Radius Low</div>
+                        <input type="text" id="maskRadiusLow" class="input">
+                    </div>
+                    <div class="col">
+                        <div class="heading">Radius High</div>
+                        <input type="text" id="maskRadiusHigh" class="input">
+                    </div>
+                </div>
+            </div>
+            <div class="outline">
+                <div class="row">
+                    <div class="col">
+                        <div class="heading">Outline Color</div>
+                        <select id="outlineColor" class="select-short select-color">
+                        </select>
+                    </div>
+                    <div class="col">
+                        <div class="heading">Weight</div>
+                        <input type="text" id="outlineWeight" class="input-short">
+                    </div>
+                    <div class="col">
+                        <div class="heading">Alpha</div>
+                        <input type="number" id="outlineAlpha" min="0" max="255" step="1" class="input-short">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sketch" id="sketch"></div>
+    </div>
+</body>
+
+</html>

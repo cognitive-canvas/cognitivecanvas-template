@@ -1,0 +1,92 @@
+.ui {
+  padding: 10px;
+  display: none;
+  min-width: 300px;
+  max-width: 300px;
+
+  min-height: 700px;
+  max-height: 900px;
+
+  flex-direction: column;
+  background-color: var(--ui);
+  color: white;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  gap: 2px;
+}
+
+.button {
+  padding: 5px;
+  color: white;
+  border: 0;
+  background-color: var(--button);
+}
+
+.button:hover {
+  background-color: var(--button-hover);
+}
+
+.select {
+  width: 125px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.select-short {
+  width: 100px;
+  padding: 2px;
+  font-size: 12px;
+}
+
+.seed {
+  font-size: 12px;
+}
+
+.heading {
+  margin-top: 5px;
+  margin-bottom: 2px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#seed {
+  color: var(--prussian-blue);
+  font-style: italic;
+  font-size: 12px;
+}
+
+.col {
+  width: 100px;
+}
+
+.input {
+  width: 100px;
+}
+
+.input-seed {
+  width: 150px;
+}
+
+.input-short {
+  width: 75px;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  justify-content: flex-start;
+}
+
+.color-picker {
+  height: 22px;
+}
+
+.outline {
+  margin-top: 10px;
+  padding: 8px;
+  background-color: var(--dark-green);
+}
