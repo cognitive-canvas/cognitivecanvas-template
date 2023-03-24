@@ -34,38 +34,6 @@ function confirmUpdate() {
 }
 
 /*
-    This handles the screen size dimensions in the different contexts. This will work for and square artwork, and 
-    can easily be adapted to any size.
-
-    When running in live mint mode, the innerHeight will always be the real window.innerHeight (that's the size we make
-    the iframe), so this is the same in all cases. The innerWidth will be at least 900 in live mint mode, but you can make 
-    this larger since you can set the size that you want via ccSetSize.
-
-    In other words, window.innerHeight is the same in all modes, and window.innerWidth can be managed by you in live mint mode.
-
-    In this case, we are just using the window.innerHeight to make our canvas between 700px and 900px square. Then we just 
-    add 500 for the width of the ui in the left nav if in live mint mode.
-
-*/
-let maxw = 0;
-let maxh = 0;
-let wwidth = 0;
-let wheight = 0;
-const MaxArtworkDim = 900;
-const MinArtworkDim = 700;
-const UIWidth = 500;
-function resizeParams() {
-  maxh = window.innerHeight;
-  maxw = window.innerWidth;
-  let dim = maxh;
-  dim = Math.min(MaxArtworkDim, dim); // 900 max
-  dim = Math.max(dim, MinArtworkDim); // 700 min
-  wwidth = isCClive ? dim + UIWidth : dim;
-  wheight = dim;
-  return { width: dim, height: dim };
-}
-
-/*
     Configuration file handling. For this arwork, only the paramameter file is updated. If 
     you allow more configuration files, then update appropriately.
 */
@@ -118,6 +86,9 @@ window.addEventListener("load", async (event) => {
     }
 
     // The following handles all the ui interactions.
+
+    captureFullscreenButton();
+
     captureButtonClick("button-stop", (event, ele) => {
         if (psk._loop) {
             ele.innerHTML = "Start";
@@ -347,9 +318,11 @@ window.addEventListener("load", async (event) => {
     function drawOneIteration(g) {
 
         for (let i = 0; i < loopIterations; i++) {
-            const x = psk.random(1) * psk.width;
-            const y = psk.random(1) * psk.height;
-            let col = pickPaletteColor(x * y);
+            let x = psk.random(g.width * 2);
+            let y = psk.random(g.height * 2);
+            let noiseVal = psk.noise(x * 0.01, y * 0.01);
+            let idx = int(noiseVal * colors.length);
+            let col = pickPaletteColor(idx);
             const n = psk.random(1);
             switch (prim) {
                 case 0: //point
@@ -388,7 +361,6 @@ window.addEventListener("load", async (event) => {
         }
     }
 
-    const textColor = psk.color(255 - parameters.background[0], 255 - parameters.background[1], 255 - parameters.background[2]);
 
     // Renders incrementally loop time, with loopIterations each time. Handles the starting and stopping of the draw
     // loop and also handles thumbnail generation.
@@ -403,15 +375,14 @@ window.addEventListener("load", async (event) => {
 
         drawOneIteration(g1);
         psk.image(g1, 0, 0);
-        const cx = (psk.width - gthumb.width) / 2;
-        const cy = (psk.height - gthumb.height) / 2
-        gthumb.image(psk, 0, 0, gthumb.width, gthumb.height, cx, cy);
 
-        // Draw the outline on the last loop. Otherwise a progress message.
+        // Draw the outline and thumbnail on the last loop. Otherwise a progress message.
         if (i == loop) {
             psk.noLoop();
             drawOutline();
+            gthumb.image(psk, 0, 0, gthumb.width, gthumb.height, 0, 0, psk.width*2, psk.height*2);
         } else if (i < loop - 1) {
+            const textColor = psk.color(255 - parameters.background[0], 255 - parameters.background[1], 255 - parameters.background[2]);
             psk.fill(textColor);
             psk.text(`Palette ${paletteNames[palette]}, ${i} of ${loop}`, 20, 20);
             psk.noFill();    
@@ -431,7 +402,7 @@ window.addEventListener("load", async (event) => {
 
     // Get a full res image
     function download() {
-        const p = Math.floor(Math.random() * 999999).toString();
+        const p = int(Math.random() * 999999).toString();
         psk.saveCanvas(`cognitive-template-${p}`, 'png');
     }
     
