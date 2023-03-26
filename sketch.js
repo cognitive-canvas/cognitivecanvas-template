@@ -4,8 +4,8 @@
 let blendModeNames = ['Blend', 'Add'];
 let primitives = ["Point", "Square"];
 let paletteColors = [
-    ['#28706A','#314127','#c36a60','#59798c','#9E562F'],
-    ['#7a543d','#f4ca38','#c0a689','#614748','#542624'],
+    ['#28706A', '#314127', '#c36a60', '#59798c', '#9E562F'],
+    ['#7a543d', '#f4ca38', '#c0a689', '#614748', '#542624'],
 ]
 
 const paletteNames = [
@@ -17,6 +17,7 @@ const paletteNames = [
     Thumbnail handling. A 512x512 graphics context is created and updated in the draw loop.
 */
 let gthumb;
+
 function saveThumbnail() {
     gthumb.canvas.toBlob(function (blob) {
         ccSaveThumbnail(blob);
@@ -39,11 +40,13 @@ function confirmUpdate() {
 */
 let paramsUrl = null;
 async function preloadParamUrls() {
-  paramsUrl = await ccFetchUrlFromParams("params.json", "application/json");
+    paramsUrl = await ccFetchUrlFromParams("params.json", "application/json");
 }
 
 // Shortcut function
-function int(v) { return Math.floor(v); }
+function int(v) {
+    return Math.floor(v);
+}
 
 /*
     Kick everything off on the browser load event.
@@ -57,14 +60,16 @@ window.addEventListener("load", async (event) => {
     // Get configuration parameter files
     await preloadParamUrls();
     try {
-      if (paramsUrl) {
-        const res = await fetch(paramsUrl, { redirect: "follow" });
-        if (res.status === 200) {
-          const parms = await res.json();
-          console.log('got parameters', parms)
-          setParameters(parms);
+        if (paramsUrl) {
+            const res = await fetch(paramsUrl, {
+                redirect: "follow"
+            });
+            if (res.status === 200) {
+                const parms = await res.json();
+                console.log('got parameters', parms)
+                setParameters(parms);
+            }
         }
-      }
     } catch (e) {}
 
     // Show the ui if in live mode and resize
@@ -80,7 +85,7 @@ window.addEventListener("load", async (event) => {
     }
 
     function pickPaletteColor(v) {
-        const idx = int(v)%palettes[palette].length
+        const idx = int(v) % palettes[palette].length
         const col = palettes[palette][idx];
         return col;
     }
@@ -90,17 +95,17 @@ window.addEventListener("load", async (event) => {
     captureFullscreenButton();
 
     captureButtonClick("button-stop", (event, ele) => {
-        if (psk._loop) {
-            ele.innerHTML = "Start";
-            psk.noLoop();
-        } else {
-            ele.innerHTML = "Pause";
-            psk.loop();
-        }
-    },
-    (ele) => {
-        ele.innerHTML = psk._loop ? "Pause" : "Start";
-    })
+            if (psk._loop) {
+                ele.innerHTML = "Start";
+                psk.noLoop();
+            } else {
+                ele.innerHTML = "Pause";
+                psk.loop();
+            }
+        },
+        (ele) => {
+            ele.innerHTML = psk._loop ? "Pause" : "Start";
+        })
 
     captureRgbColor("background", parameters.background, (e, c) => {
         parameters.background = c;
@@ -149,9 +154,9 @@ window.addEventListener("load", async (event) => {
 
     // shortcut to handle the rest of the numeric inputs.
     captureNumericInputs([
-        'loop', 
-        'loopIterations', 
-        'size', 
+        'loop',
+        'loopIterations',
+        'size',
         'maskCircles',
         'maskSeed',
         'maskRadiusLow',
@@ -195,9 +200,11 @@ window.addEventListener("load", async (event) => {
         psk.randomSeed(parameters.randSeed);
         psk.noiseSeed(parameters.randSeed);
 
-        colors = parameters.colors.length > 0 ? parameters.colors : Array.from({ length: palettes[palette].length }, (_, i) => i),
+        colors = parameters.colors.length > 0 ? parameters.colors : Array.from({
+                length: palettes[palette].length
+            }, (_, i) => i),
 
-        prim = parameters.primitive;
+            prim = parameters.primitive;
         blendMode = blendModes[parameters.blendMode];
         size = parameters.size;
         background = parameters.background;
@@ -206,9 +213,9 @@ window.addEventListener("load", async (event) => {
         maskRadiusHigh = parameters.maskRadiusHigh;
         maskCircleStart = parameters.maskCircleStart;
         maskCircleEnd = parameters.maskCircleEnd;
-        maskCircles =  parameters.maskCircles,
-        maskSeed = psk.random() * 9999999;
-    
+        maskCircles = parameters.maskCircles,
+            maskSeed = psk.random() * 9999999;
+
         outlineAlpha = parameters.outlineAlpha;
         outlineWeight = parameters.outlineWeight;
         outlineColor = parameters.outlineColor;
@@ -216,8 +223,7 @@ window.addEventListener("load", async (event) => {
         loop = parameters.loop;
         loopIterations = parameters.loopIterations;
 
-        attributes = [
-            {
+        attributes = [{
                 trait_type: "Palette",
                 value: paletteNames[palette],
             },
@@ -287,7 +293,7 @@ window.addEventListener("load", async (event) => {
     }
 
     function setBackground(g) {
-        g.background(parameters.background[0],parameters.background[1],parameters.background[2]);
+        g.background(parameters.background[0], parameters.background[1], parameters.background[2]);
     }
 
     function drawCircle(g, x, y, r) {
@@ -307,10 +313,13 @@ window.addEventListener("load", async (event) => {
     }
 
     psk.setup = function () {
-        const { width, height } = resizeParams();
+        const {
+            width,
+            height
+        } = resizeParams();
         psk.createCanvas(width, height);
         g1 = psk.createGraphics(width, height);
-        gthumb = psk.createGraphics(512, 512);
+        gthumb = psk.createGraphics(900, 900);
         loopInit();
     };
 
@@ -345,7 +354,7 @@ window.addEventListener("load", async (event) => {
         psk.strokeWeight(outlineWeight);
         psk.randomSeed(maskSeed);
         drawCirclesOutline();
-        psk.randomSeed(ccrand()*99999)
+        psk.randomSeed(ccrand() * 99999)
         psk.noStroke();
     }
 
@@ -380,12 +389,12 @@ window.addEventListener("load", async (event) => {
         if (i == loop) {
             psk.noLoop();
             drawOutline();
-            gthumb.image(psk, 0, 0, gthumb.width, gthumb.height, 0, 0, psk.width*2, psk.height*2);
+            gthumb.image(psk, 0, 0, gthumb.width, gthumb.height, 0, 0, psk.width * 2, psk.height * 2);
         } else if (i < loop - 1) {
             const textColor = psk.color(255 - parameters.background[0], 255 - parameters.background[1], 255 - parameters.background[2]);
             psk.fill(textColor);
             psk.text(`Palette ${paletteNames[palette]}, ${i} of ${loop}`, 20, 20);
-            psk.noFill();    
+            psk.noFill();
         }
         i++;
     };
@@ -395,9 +404,9 @@ window.addEventListener("load", async (event) => {
         if (e.key === 'd') {
             download();
         } else if (e.key === 's')
-            i = parameters.loopIterations; 
+            i = parameters.loopIterations;
         else if (e.key === 'r')
-            restart(); 
+            restart();
     }
 
     // Get a full res image
@@ -405,5 +414,5 @@ window.addEventListener("load", async (event) => {
         const p = int(Math.random() * 999999).toString();
         psk.saveCanvas(`cognitive-template-${p}`, 'png');
     }
-    
+
 });

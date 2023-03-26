@@ -56,7 +56,7 @@ as it is a much better user experience. This can be easily adapted to most artwo
 7. Thumbnail generation is built in.
 8. Seed handling is built in.
 9. The size of the artwork adapts to the screen size. 
-10. The 3 required images are included, *thumbnail.png*, *opensea.png*, and *avatar.png*.
+10. The 4 required images are included, *thumbnail.png*, *opensea-banner.png*, *opensea.png*, and *avatar.png*.
 
 ## Customizing
 
