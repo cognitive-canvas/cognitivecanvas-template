@@ -1,13 +1,12 @@
 let parameters = {
-    background: [255, 255, 255],
-    blendMode: 0,
+    background: [0, 0, 0],
+    blendMode: 1,
     colors: [],
 
-    loop: 1500,
-    loopIterations: 1000,
+    loop: 1700,
+    loopIterations: 1500,
 
-    size: .2,
-    lineWidth: .5,
+    size: .4,
     primitive: 0,
 
     outlineColor: 1,
@@ -15,7 +14,7 @@ let parameters = {
     outlineWeight: .5,
     maskRadiusLow: 550,
     maskRadiusHigh: 800,
-    maskCircles: 2,
+    maskCircles: 4,
     maskCircleStart: 0,
     maskCircleEnd: 1.0,
 
